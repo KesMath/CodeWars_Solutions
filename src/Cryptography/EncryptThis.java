@@ -14,7 +14,7 @@ public class EncryptThis {
             str.append(String.valueOf((int) letter) + w + " ");
         }
         return str.toString().trim();
-    }//xKdf98FG6x
+    }
 
     public static String decryptThis(String text) {
         String[] words = text.split(" ");
