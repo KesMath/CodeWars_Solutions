@@ -1,4 +1,4 @@
-package Codewars;
+package Interpreters;
 
 import java.util.HashMap;
 import java.util.Map;
