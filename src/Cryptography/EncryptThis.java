@@ -1,4 +1,4 @@
-package Encryption;
+package Cryptography;
 
 public class EncryptThis {
     public static String encryptThis(String text) {
