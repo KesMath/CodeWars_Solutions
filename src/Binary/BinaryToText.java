@@ -1,6 +1,13 @@
 package Binary;
 
 public class BinaryToText {
+    /**
+     * High level Algorithm:
+     * A character = 8 bits = 1 byte
+     * Convert 1 byte to decimal value by: Value = ∑ BitValue * (Radix^n) where 0<=n<=8
+     * Find corresponding Value in ASCII Table: https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
+     * Repeat steps for all bytes to get string representation
+     */
     public static String binaryToText(String binary) {
         // a less optimal but cleaner approach
         // would be to break down binary string to list of bytes which alleviates modulo cycling
