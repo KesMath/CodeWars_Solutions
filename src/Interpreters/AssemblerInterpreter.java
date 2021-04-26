@@ -56,7 +56,6 @@ public class AssemblerInterpreter {
 
 
     public void jnz(String var, Integer steps) throws IndexOutOfBoundsException{
-        //TODO: does this approach respect 2nd test example? How does b = -20 instead of -11?
         /**APPROACH: jump or goto should probably refer to index in array: where goto = current pointer of jnz - steps
          * this goto step should be executed in a while loop until variable value = 0
          *
@@ -73,19 +72,33 @@ public class AssemblerInterpreter {
 
         int programCounterCopy = programCounter;
         int jmpPointer = programCounterCopy + steps;
+        int resetValue = jmpPointer;
 
         if(jmpPointer >= program.length || jmpPointer < 0){
             throw new IndexOutOfBoundsException("Cannot jump "
                     + steps +
                     " steps in program array!");
         }
-        String jmpCmd = program[jmpPointer];
+        /** NOTE: while loop should not only iterate on jmpCmd but execute any program cmd between: jmpCmd and JNZ
+         *  until var == 0
+         */
         while(variables.get(var) != 0){
-            execute(jmpCmd);
+            //must use a stale copy of pgmCounter which represents the index of this jnz() call
+            // usage of actual 'programCounter' will ensure else statement would never be reached since it increments per execute() call!
+            if(jmpPointer < programCounterCopy)
+                execute(program[jmpPointer++]);
+            else{
+                jmpPointer = resetValue;
+            }
         }
+        //FIXME: this is a temporary patch to finish executing cmds in array after var == 0
+        // A better implementation would be to integrate this into previous loop but runtime is still unaffected at O(n)!
+        for(;jmpPointer < programCounterCopy; jmpPointer++){execute(program[jmpPointer]);}
+
         /**NOTE: calls to execute (which calls (1/4) methods)
          *  increases programCounter+=N (where N is iterations until conditional reaches 0)
-         *  Hence, resetting it back to it's original value prevents future IndexOOB exception!
+         *  Hence, resetting it back to it's original value prevents future IndexOOB exception
+         *  and allows for program flow to proceed after jnz call!
          */
         programCounter = programCounterCopy + 1;
     }
@@ -111,9 +124,9 @@ public class AssemblerInterpreter {
         return variables;
     }
 
-
     public static void main(String[] args) {
-        String [] program = new String[]{"mov a 5",
+        String [] program = new String[]{
+                "mov a 5",
                 "inc a",
                 "dec a",
                 "dec a",
@@ -121,7 +134,8 @@ public class AssemblerInterpreter {
                 "inc a"
         };
 
-        String [] program2 = new String[] {"mov a -10",
+        String [] program2 = new String[] {
+                "mov a -10",
                 "mov b a",
                 "inc a",
                 "dec b",
