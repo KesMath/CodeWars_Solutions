@@ -107,11 +107,20 @@ public class AssemblerInterpreter {
         String[] command = line.split(" ");
         String method = command[0];
         String var = command[1];
-
-        if(method.equals("mov")){ mov(var, command[2]);}
-        else if(method.equals("inc")){ inc(var); }
-        else if(method.equals("dec")){ dec(var); }
-        else if(method.equals("jnz")){ jnz(var, Integer.valueOf(command[2])); }
+        switch(method){
+            case "mov":
+                mov(var, command[2]);
+                break;
+            case "inc":
+                inc(var);
+                break;
+            case "dec":
+                dec(var);
+                break;
+            case "jnz":
+                jnz(var, Integer.valueOf(command[2]));
+                break;
+        }
     }
 
     public Map<String, Integer> interpret(String[] program){
