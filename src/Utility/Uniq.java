@@ -28,7 +28,7 @@ public class Uniq {
                 cout = 1;
             }
         }
-        //need to add trailing array additions
+        //need to add trailing array dict
         HashMap<Character, Integer> map = new HashMap<>();
         map.put(arr[arr.length - 1], cout);
         list.add(map);
