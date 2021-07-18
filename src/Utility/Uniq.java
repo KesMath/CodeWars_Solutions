@@ -35,7 +35,7 @@ public class Uniq {
         return list;
     }
     public static void main(String[] args) {
-        System.out.println(Uniq.uniq(new char[]{'a','a','b','b','c','a','b','c'}));
-        System.out.println(Uniq.uniq(new char[]{'a','a','a','b','b','b','c','c','c'}));
+        System.out.println(Uniq.uniq(new char[]{'a','a','b','b','c','a','b','c'})); // RESULT: [{a=2}, {b=2}, {c=1}, {a=1}, {b=1}, {c=1}]
+        System.out.println(Uniq.uniq(new char[]{'a','a','a','b','b','b','c','c','c'})); // RESULT: [{a=3}, {b=3}, {c=3}]
     }
 }
