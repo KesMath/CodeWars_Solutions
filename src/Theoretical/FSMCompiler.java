@@ -25,9 +25,9 @@ public class FSMCompiler {
     public FSMCompiler(String instructions){
         String[] instruction = instructions.split("\n");
         for (String path: instruction){
-            String[] states = path.split(";"); //["S1", "S1, S2", " 9"]
-            String[] route = states[1].split(","); //["S1"," S2"]
-            transitions.put(states[0], new HashMap<>(){{ put(0, route[0]);
+            String[] states = path.split(";"); //["S1", " S1, S2", " 9"]
+            String[] route = states[1].split(","); //[" S1"," S2"]
+            transitions.put(states[0], new HashMap<>(){{ put(0, route[0].stripLeading());
                                                          put(1, route[1].stripLeading());
                                                          put(-1, states[2].stripLeading());}});
         }
