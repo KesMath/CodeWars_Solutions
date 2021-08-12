@@ -19,22 +19,21 @@ public class FSMCompiler {
         private void setFinalValue(int val){this.finalValue = val;}
     }
 
-    public Traveler state;
+    public Traveler traveler = new Traveler();
     private Map<String, Map<Integer, String>> transitions = new HashMap<>();
 
     public FSMCompiler(String instructions){
         String[] instruction = instructions.split("\n");
         for (String path: instruction){
-            String[] states = path.split(";"); //["S1", "S1, S2", "9"]
-            String[] route = states[1].split(","); //["S1","S2"]
+            String[] states = path.split(";"); //["S1", "S1, S2", " 9"]
+            String[] route = states[1].split(","); //["S1"," S2"]
             transitions.put(states[0], new HashMap<>(){{ put(0, route[0]);
-                                                         put(1, route[1]);
-                                                         put(-1, states[2]);}});
+                                                         put(1, route[1].stripLeading());
+                                                         put(-1, states[2].stripLeading());}});
         }
     }
 
     public Traveler runFSM(String start, int[] sequences){
-        Traveler traveler = new Traveler();
         traveler.getTraversedPath().add(start);
         for(int step: sequences){
             traveler.getTraversedPath().add(transitions.get(start).get(step));
@@ -49,8 +48,8 @@ public class FSMCompiler {
                                                              "S3; S4, S3; 8\n" +
                                                              "S4; S4, S1; 0");
         fsmCompiler.runFSM("S1", new int[]{0, 1, 1, 0, 1});
-        System.out.println(fsmCompiler.state.getFinalState());
-        System.out.println(fsmCompiler.state.getFinalValue());
-        System.out.println(fsmCompiler.state.getTraversedPath());
+        System.out.println(fsmCompiler.traveler.getFinalState());
+        System.out.println(fsmCompiler.traveler.getFinalValue());
+        System.out.println(fsmCompiler.traveler.getTraversedPath());
     }
 }
