@@ -36,7 +36,8 @@ public class FSMCompiler {
     public Traveler runFSM(String start, int[] sequences){
         traveler.getTraversedPath().add(start);
         for(int step: sequences){
-            traveler.getTraversedPath().add(transitions.get(start).get(step));
+            start = transitions.get(start).get(step);
+            traveler.getTraversedPath().add(start);
         }
         traveler.setFinalValue(Integer.valueOf(transitions.get(traveler.getFinalState()).get(-1)));
         return traveler;
