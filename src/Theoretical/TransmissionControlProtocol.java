@@ -3,7 +3,7 @@ package Theoretical;
 import java.util.HashMap;
 import java.util.Map;
 
-//http://www.medianet.kent.edu/techreports/TR2005-07-22-tcp-EFSM.pdf
+// DESCRIPTION: http://www.medianet.kent.edu/techreports/TR2005-07-22-tcp-EFSM.pdf
 public class TransmissionControlProtocol {
 
     public static String traverseStates(String[] events) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//https://www.codewars.com/kata/59923f1301726f5430000059/train/
+// DESCRIPTION: https://www.codewars.com/kata/59923f1301726f5430000059/train/
 public class FSMCompiler {
 
     public class Traveler {
@@ -49,8 +49,8 @@ public class FSMCompiler {
                                                              "S3; S4, S3; 8\n" +
                                                              "S4; S4, S1; 0");
         fsmCompiler.runFSM("S1", new int[]{0, 1, 1, 0, 1});
-        System.out.println(fsmCompiler.traveler.getFinalState());
-        System.out.println(fsmCompiler.traveler.getFinalValue());
-        System.out.println(fsmCompiler.traveler.getTraversedPath());
+        System.out.println(fsmCompiler.traveler.getFinalState()); // S1
+        System.out.println(fsmCompiler.traveler.getFinalValue()); // 9
+        System.out.println(fsmCompiler.traveler.getTraversedPath()); // [S1, S1, S2, S3, S4, S1]
     }
 }
