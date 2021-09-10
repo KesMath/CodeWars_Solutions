@@ -1,6 +1,7 @@
 package Utility;
 
 public class VinChecker {
+
     public static boolean checkVin(String vin) {
         if(vin.length() != 17) return false;
         else{
