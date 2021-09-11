@@ -1,5 +1,6 @@
 package Utility;
 
+//DESCRIPTION: https://www.codewars.com/kata/60a54750138eac0031eb98e1
 public class VinChecker {
 
     public static boolean checkVin(String vin) {
