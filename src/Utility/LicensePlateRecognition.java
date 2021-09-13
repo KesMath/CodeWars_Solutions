@@ -39,8 +39,10 @@ public class LicensePlateRecognition {
     }
 
     public static void main(String[] args) {
-        System.out.println(LicensePlateRecognition.recognize(" _  _     _  _  _  _  _ \n"+
-                                                                " _| _||_||_ |_   ||_||_|\n"+
-                                                                "|_  _|  | _||_|  ||_| _|")); //returns: 23456789
+
+        String str = " _  _     _  _  _  _  _ \n"+
+                     " _| _||_||_ |_   ||_||_|\n"+
+                     "|_  _|  | _||_|  ||_| _|";
+        System.out.println(LicensePlateRecognition.recognize(str)); //returns: 23456789
     }
 }
