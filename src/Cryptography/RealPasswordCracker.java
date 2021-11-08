@@ -107,8 +107,8 @@ public class RealPasswordCracker {
 
 
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
-        //System.out.println(RealPasswordCracker.passwordCracker("e6fb06210fafc02fd7479ddbed2d042cc3a5155e")); //returns "code"
-        //System.out.println(RealPasswordCracker.passwordCracker("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")); //returns "test"
+        System.out.println(RealPasswordCracker.passwordCracker("e6fb06210fafc02fd7479ddbed2d042cc3a5155e")); //returns "code"
+        System.out.println(RealPasswordCracker.passwordCracker("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")); //returns "test"
 
         FileWriter myWriter = new FileWriter("src\\Cryptography\\sha1_rainbow_table.csv");
         myWriter.write("Password, SHA-1 HASH\n");
