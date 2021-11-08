@@ -1,5 +1,7 @@
 package Cryptography;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -65,11 +67,52 @@ public class RealPasswordCracker {
      * @return - a string containing all 12,356,630 string permutations (for characters of length 1 <= x <= 5)
      * mapped to it's SHA-1 hash. This will be used to create a rainbow table
      */
-    public static String permuteAllSHA_1Hashes() throws NoSuchAlgorithmException {return "";}
+    public static String permuteAllSHA_1Hashes() throws NoSuchAlgorithmException {
+        String str = null;
+        StringBuilder builder = new StringBuilder();
+        MessageDigest md;
+        try{
+            md = MessageDigest.getInstance("SHA-1");
+        }
+        catch (NoSuchAlgorithmException e){
+            throw new NoSuchAlgorithmException(e);
+        }
+
+        for(int i = 97; i < 123; i++){
+            str = (char) i + "";
+            builder.append(str + "," + CrackThePin.convertByteArrToHex(md.digest(str.getBytes())) + "\n");
+
+            for(int j = 97; j < 123; j++){
+                str = (char) i + "" + (char) j;
+                builder.append(str + "," + CrackThePin.convertByteArrToHex(md.digest(str.getBytes())) + "\n");
+
+                for(int k = 97; k < 123; k++){
+                    str = (char) i  + "" + (char) j + "" + (char) k;
+                    builder.append(str + "," + CrackThePin.convertByteArrToHex(md.digest(str.getBytes())) + "\n");
+
+                    for(int l = 97; l < 123; l++){
+                        str = (char) i  + "" + (char) j + "" + (char) k + "" + (char) l;
+                        builder.append(str + "," + CrackThePin.convertByteArrToHex(md.digest(str.getBytes())) + "\n");
+
+                        for(int m = 97; m < 123; m++){
+                            str = (char) i  + "" + (char) j + "" + (char) k + "" + (char) l + (char) m;
+                            builder.append(str + "," + CrackThePin.convertByteArrToHex(md.digest(str.getBytes())) + "\n");
+                        }
+                    }
+                }
+            }
+        }
+        return builder.toString();
+    }
 
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(RealPasswordCracker.passwordCracker("e6fb06210fafc02fd7479ddbed2d042cc3a5155e"));
-        System.out.println(RealPasswordCracker.passwordCracker("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"));
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        //System.out.println(RealPasswordCracker.passwordCracker("e6fb06210fafc02fd7479ddbed2d042cc3a5155e")); //returns "code"
+        //System.out.println(RealPasswordCracker.passwordCracker("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3")); //returns "test"
+
+        FileWriter myWriter = new FileWriter("src\\Cryptography\\sha1_rainbow_table.csv");
+        myWriter.write("Password, SHA-1 HASH\n");
+        myWriter.write(RealPasswordCracker.permuteAllSHA_1Hashes());
+        myWriter.close();
     }
 }
