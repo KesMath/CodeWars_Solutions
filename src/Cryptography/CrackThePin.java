@@ -101,5 +101,8 @@ public class CrackThePin {
         myWriter.write("5 Digit PIN, MD5 HASH\n");
         myWriter.write(pins.permuteAllMD5Hashes());
         myWriter.close();
+
+        System.out.println(pins.crack("827ccb0eea8a706c4c34a16891f84e7b")); // returns 12345
+        System.out.println(pins.crack("86aa400b65433b608a9db30070ec60cd")); // returns 00078
     }
 }
