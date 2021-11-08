@@ -97,7 +97,7 @@ public class CrackThePin {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
         CrackThePin pins = new CrackThePin();
-        FileWriter myWriter = new FileWriter("src\\Cryptography\\rainbow_table.csv");
+        FileWriter myWriter = new FileWriter("src\\Cryptography\\md5_rainbow_table.csv");
         myWriter.write("5 Digit PIN, MD5 HASH\n");
         myWriter.write(pins.permuteAllMD5Hashes());
         myWriter.close();
