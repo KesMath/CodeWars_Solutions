@@ -59,7 +59,42 @@ public class CrackThePin {
                 }
             }
         return builder.toString();
+    }
+
+    /**
+     *
+     * @param hash - md5 hash
+     * @return 5 digit pin, that when applied through md5 hash function, returns parameter str
+     * @throws NoSuchAlgorithmException - if MD5 algorithm is not supported in the environment
+     */
+    public String crack(String hash) throws NoSuchAlgorithmException {
+        String pin = null;
+        MessageDigest md;
+        try{
+            md = MessageDigest.getInstance("MD5");
         }
+        catch (NoSuchAlgorithmException e){
+            throw new NoSuchAlgorithmException(e);
+        }
+        label:
+        for(int f = 0; f < 10; f++){
+            for(int g = 0; g < 10; g++){
+                for(int h = 0; h < 10; h++){
+                    for(int i = 0; i < 10; i++){
+                        for(int j = 0; j < 10; j++){
+                            byte[] arr = md.digest(("" + f + ""+ g + "" + h + "" + i + "" + j).getBytes());
+                            if(convertByteArrToHex(arr).equals(hash)){
+                                pin = ("" + f + ""+ g + "" + h + "" + i + "" + j);
+                                break label;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return pin;
+    }
+
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
         CrackThePin pins = new CrackThePin();
         FileWriter myWriter = new FileWriter("src\\Cryptography\\rainbow_table.csv");
