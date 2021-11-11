@@ -17,7 +17,7 @@ public class MiniStringFuck {
 
     public enum Token{
         INCREMENT_COMMAND('+'), //calls contructor with char = '+'
-        OUTPUT_COMMAND('.');      //calls contructor with char = '.'
+        OUTPUT_COMMAND('.');    //calls contructor with char = '.'
 
         public final char tokenChar;
 
@@ -70,7 +70,11 @@ public class MiniStringFuck {
                       "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++." +
                       "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.";
         MiniStringFuck interpreter = new MiniStringFuck(code);
-        System.out.println(interpreter.interpret());
+        System.out.println(interpreter.interpret()); //returns: "Hello, World!"
+
+        String code2 = "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.";
+        MiniStringFuck interpreter2 = new MiniStringFuck(code2);
+        System.out.println(interpreter2.interpret()); //returns: "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     }
 
 }
