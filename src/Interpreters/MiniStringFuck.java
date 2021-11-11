@@ -16,6 +16,20 @@ package Interpreters;
  */
 public class MiniStringFuck {
 
+    public enum Token{
+        INCREMENTOR_COMMAND('+'), //calls contructor with char = '+'
+        OUTPUT_COMMAND('.');      //calls contructor with char = '.'
+
+        public final char tokenChar;
+
+        private Token(char token){
+            this.tokenChar = token;
+        }
+        public char getToken(){
+            return this.tokenChar;
+        }
+    }
+
     public MiniStringFuck(String code) {
 
     }
