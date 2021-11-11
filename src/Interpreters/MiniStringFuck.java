@@ -16,7 +16,7 @@ package Interpreters;
 public class MiniStringFuck {
 
     public enum Token{
-        INCREMENTOR_COMMAND('+'), //calls contructor with char = '+'
+        INCREMENT_COMMAND('+'), //calls contructor with char = '+'
         OUTPUT_COMMAND('.');      //calls contructor with char = '.'
 
         public final char tokenChar;
@@ -43,13 +43,11 @@ public class MiniStringFuck {
     public String interpret() {
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < code.length(); i++){
-            if(this.code.charAt(i) == Token.INCREMENTOR_COMMAND.getToken()){
+            if(this.code.charAt(i) == Token.INCREMENT_COMMAND.getToken()){
                 if(this.memoryCell == 256){
                     resetMemoryCell();
                 }
-                else{
-                    this.memoryCell++;
-                }
+                this.memoryCell++;
             }
             else if(this.code.charAt(i) == Token.OUTPUT_COMMAND.getToken()){
                 builder.append((char) memoryCell);
@@ -59,7 +57,6 @@ public class MiniStringFuck {
     }
 
     public static void main(String[] args) {
-
         String code = "(++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++." +
                       "+++++++++++++++++++++++++++++." +
                       "+++++++.." +
