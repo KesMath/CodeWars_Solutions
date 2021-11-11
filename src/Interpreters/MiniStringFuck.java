@@ -13,6 +13,11 @@ package Interpreters;
  * + - Increment the memory cell. If it reaches 256, wrap to 0.
  * . - Output the value of the memory cell as a character with code point equal to the value
  */
+
+//FIXME: shouldWorkForRandomlyGeneratedMiniStringFuckPrograms
+//expected:<... ¢«°°²³¼¾ÆÆÈßßåü[,NQV¡­ºÊÕÚèéëëìîóü]%47888=>DHPYY^`in...>
+// but was:<... ¢«°°²³¼¾ÆÆÈßßåü[Ā,NQV¡­ºÊÕÚèéëëìîóüĀ]%47888=>DHPYY^`in...>
+
 public class MiniStringFuck {
 
     public enum Token{
@@ -78,5 +83,3 @@ public class MiniStringFuck {
     }
 
 }
-
-
