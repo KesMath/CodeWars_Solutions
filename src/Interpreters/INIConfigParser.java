@@ -50,8 +50,18 @@ public class INIConfigParser implements ConfigParser {
         }
     }
 
-    public INIConfigParser(){
+    public class SyntaxException extends Exception{
+        public SyntaxException(String error){ super(error); }
+    }
 
+    private int lineNumber;
+    private int rowNumber;
+    private String iniString;
+
+    public INIConfigParser(String iniString){
+        this.iniString = iniString;
+        lineNumber = 0;
+        rowNumber = 0;
     }
 
     public String parseConfig(){
