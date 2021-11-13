@@ -34,7 +34,21 @@ package Interpreters;
  */
 public class INIConfigParser implements ConfigParser {
 
+    public enum Token{
+        LEFT_ANGLE_BRACKET('['),  //for [section] block
+        RIGHT_ANGLE_BRACKET(']'), //for [section] block
+        EQUAL_SIGN('='),          //for key:value
+        COMMENT(';');
 
+        private char token;
+        private Token(char ch){
+            this.token = ch;
+        }
+
+        public char getToken(){
+            return this.token;
+        }
+    }
 
     public INIConfigParser(){
 
