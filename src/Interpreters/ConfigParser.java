@@ -1,5 +1,5 @@
 package Interpreters;
 
 public interface ConfigParser {
-    public String parseConfig();
+    public String parseConfig() throws Exception;
 }
