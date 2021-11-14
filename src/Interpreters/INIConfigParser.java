@@ -1,7 +1,5 @@
 package Interpreters;
 
-import java.util.Arrays;
-
 /**
  * DESCRIPTION: https://www.codewars.com/kata/59d168926bddd2ff46000030
  *
@@ -73,7 +71,6 @@ public class INIConfigParser implements ConfigParser {
         return str.charAt(0) == Token.COMMENT.getToken();
     }
 
-    //FIXME: stripping commas on last key:value
     /**NOTE: return value of parseConfig() could be a custom wrapper over HashMap
      * so user of this parser can interface with key values in their application without
      * relying on string parsing.
@@ -81,6 +78,9 @@ public class INIConfigParser implements ConfigParser {
      * serves no usability to user's application
      */
     //TODO: refactor name to toString() and create real parser function that adds ini entries as dict values
+    // creating this real parser function cannot be elegantly done in Java as there is no support for
+    // heterogeneous dictionaries (i.e. dictionaries that can contained nested and non-nested entries)
+    // due to strongly-typed nature of this language. This exercise is better suited either Python or Javascript
     public String parseConfig() throws SyntaxException{
         int curlyBracketCounter = 0; //used to determine if there exists uneven curly pairs
         StringBuilder builder = new StringBuilder();
@@ -93,6 +93,7 @@ public class INIConfigParser implements ConfigParser {
                 }
                 else if(this.iniStrings[i].contains("" + Token.EQUAL_SIGN.getToken())){
                     String[] mapValue = this.iniStrings[i].split("" + Token.EQUAL_SIGN.getToken());
+                    //FIXME: stripping commas on last key:value
                     builder.append("\"" + mapValue[0] + "\"" + ": \"" + mapValue[1] + "\",\n");
                 }
                 else{
