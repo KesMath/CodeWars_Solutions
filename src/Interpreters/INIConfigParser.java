@@ -1,5 +1,7 @@
 package Interpreters;
 
+import java.util.Arrays;
+
 /**
  * DESCRIPTION: https://www.codewars.com/kata/59d168926bddd2ff46000030
  *
@@ -55,20 +57,110 @@ public class INIConfigParser implements ConfigParser {
     }
 
     private int lineNumber;
-    private int rowNumber;
-    private String iniString;
+    private String[] iniStrings;
 
     public INIConfigParser(String iniString){
-        this.iniString = iniString;
-        lineNumber = 0;
-        rowNumber = 0;
+        this.iniStrings = iniString.split("\n");
+        lineNumber = 1;
     }
 
-    public String parseConfig(){
-        return "";
+    private boolean isValidSectionHeader(String str){
+        return (str.charAt(0) == Token.LEFT_ANGLE_BRACKET.getToken()
+                &&  str.charAt(str.length()-1) == Token.RIGHT_ANGLE_BRACKET.getToken());
     }
 
-    public static void main(String[] args) {
+    private boolean isValidComment(String str){
+        return str.charAt(0) == Token.COMMENT.getToken();
+    }
 
+    //FIXME: stripping commas on last key:value
+    /**NOTE: return value of parseConfig() could be a custom wrapper over HashMap
+     * so user of this parser can interface with key values in their application without
+     * relying on string parsing.
+     * The current transformation from ini format to dictionary-like format
+     * serves no usability to user's application
+     */
+    //TODO: refactor name to toString() and create real parser function that adds ini entries as dict values
+    public String parseConfig() throws SyntaxException{
+        int curlyBracketCounter = 0; //used to determine if there exists uneven curly pairs
+        StringBuilder builder = new StringBuilder();
+
+        for(int i = 0; i < this.iniStrings.length; i++){
+            if(!this.iniStrings[i].equals("")){
+                if(isValidSectionHeader(this.iniStrings[i])){
+                    builder.append("\"" + this.iniStrings[i].substring(1, this.iniStrings[i].length() - 1) + "\": {\n");
+                    curlyBracketCounter++;
+                }
+                else if(this.iniStrings[i].contains("" + Token.EQUAL_SIGN.getToken())){
+                    String[] mapValue = this.iniStrings[i].split("" + Token.EQUAL_SIGN.getToken());
+                    builder.append("\"" + mapValue[0] + "\"" + ": \"" + mapValue[1] + "\",\n");
+                }
+                else{
+                    if(!isValidComment(this.iniStrings[i]))
+                        throw new SyntaxException("Parsing Failed!\nRectify syntax on line " + lineNumber);
+                }
+                lineNumber++;
+            }
+            else{
+                if(builder.toString().contains("{")){
+                    builder.append("\t},\n");
+                    curlyBracketCounter--;
+                }
+            }
+        }
+
+        if(curlyBracketCounter == 1) { //meaning a left curly bracket was added without matching right bracket
+            builder.append("\t}\n");
+        }
+        //adding overall brackets
+        builder.insert(0,"{\n");
+        builder.append("}");
+        return builder.toString();
+    }
+
+    public static void main(String[] args) throws SyntaxException {
+        String iniConfig1 =
+                "; This is an example of an ini config file!\n" +
+                "foo1=bar1\n" +
+                "foo2=bar2\n" +
+                "\n" +
+                "[foobar]\n" +
+                "foo3=bar3\n" +
+                "foo4=bar4\n";
+
+        String iniConfig2 =
+                "[section1]\n" +
+                "foo=bar\n" +
+                "\n" +
+                "[section2]\n" +
+                "lorem=ipsum";
+        INIConfigParser parser1 = new INIConfigParser(iniConfig1);
+        System.out.println(parser1.parseConfig());
+        /**
+         * RETURNS:
+         * {
+         * "foo1": "bar1",
+         * "foo2": "bar2",
+         * "foobar": {
+         * "foo3": "bar3",
+         * "foo4": "bar4",
+         *        }
+         * }
+         */
+        System.out.println("\n");
+        INIConfigParser parser2 = new INIConfigParser(iniConfig2);
+        System.out.println(parser2.parseConfig());
+        /**
+         * RETURNS:
+         * {
+         * "section1": {
+         * "foo": "bar",
+         *        },
+         * "section2": {
+         * "lorem": "ipsum",
+         *    }
+         * }
+         *
+         */
     }
 }
