@@ -37,9 +37,10 @@ public class PostFixEvaluator {
 
     public static void main(String[] args) {
         PostFixEvaluator eval = new PostFixEvaluator();
-        System.out.println(eval.evaluate("24 25 +"));
-        System.out.println(eval.evaluate("20 40 + 60 *"));
-        System.out.println(eval.evaluate("20 40 60 + *"));
-        System.out.println(eval.evaluate("2 3 9 4 / + *"));
+        System.out.println(eval.evaluate("24 25 +")); //49
+        System.out.println(eval.evaluate("20 40 + 60 *")); //3600
+        System.out.println(eval.evaluate("20 40 60 + *")); //2000
+        System.out.println(eval.evaluate("2 3 9 4 / + *")); //10
+        System.out.println(eval.evaluate("24 -25 +")); //-1
     }
 }
