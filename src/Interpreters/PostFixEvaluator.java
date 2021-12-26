@@ -18,15 +18,15 @@ public class PostFixEvaluator {
                 stack.push("" + (Integer.valueOf(stack.pop()) + Integer.valueOf(stack.pop())));
             }
             else if (str.equals("-")){
-                //TODO: fixme since order is important
-                stack.push("" + (Integer.valueOf(stack.pop()) - Integer.valueOf(stack.pop())));
+                int operand1 = Integer.valueOf(stack.pop());
+                stack.push("" + (Integer.valueOf(stack.pop()) - operand1));
             }
             else if (str.equals("*")){
                 stack.push("" + (Integer.valueOf(stack.pop()) * Integer.valueOf(stack.pop())));
             }
             else if (str.equals("/")){
-                //TODO: fixme since order is important
-                stack.push("" + (Integer.valueOf(stack.pop()) / Integer.valueOf(stack.pop())));
+                int operand1 = Integer.valueOf(stack.pop());
+                stack.push("" + (Integer.valueOf(stack.pop()) / operand1));
             }
             else{
                 stack.push(str);
@@ -40,7 +40,6 @@ public class PostFixEvaluator {
         System.out.println(eval.evaluate("24 25 +"));
         System.out.println(eval.evaluate("20 40 + 60 *"));
         System.out.println(eval.evaluate("20 40 60 + *"));
-        System.out.println(eval.evaluate("9 4 -"));
         System.out.println(eval.evaluate("2 3 9 4 / + *"));
     }
 }
