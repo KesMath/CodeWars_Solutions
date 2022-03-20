@@ -1,5 +1,7 @@
 package Utility;
+import java.text.DecimalFormat;
 
+// https://www.codewars.com/kata/59255740ca72049e760000cd/train/javascript
 public class ScientificNotation {
 
     public static String formatter(double num){
@@ -23,8 +25,8 @@ public class ScientificNotation {
 
         }
         else{
-            //TODO: must round to 3 decimal places
-            return num + "*";
+            DecimalFormat df = new DecimalFormat("0.00#");
+            return df.format(num) + "*";
         }
     }
 
@@ -61,7 +63,7 @@ public class ScientificNotation {
         System.out.println(ScientificNotation.shorthand(-2000));   // returns "-2*10^3"
         System.out.println(ScientificNotation.shorthand(1000));   // returns "10^3"
         System.out.println(ScientificNotation.shorthand(-1000));   // returns "-1*10^3"
-        //System.out.println(ScientificNotation.shorthand(532452000));  // returns "5.325*10^8"
+        System.out.println(ScientificNotation.shorthand(532452000));  // returns "5.325*10^8"
         System.out.println(ScientificNotation.shorthand(0.00005));  // returns "5*10^-5"
         System.out.println(ScientificNotation.shorthand(0.000001));  // returns "5*10^-6"
     }
