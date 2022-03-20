@@ -2,7 +2,7 @@ package Utility;
 
 public class ScientificNotation {
 
-    public static String formatter(float num){
+    public static String formatter(double num){
         /**
          * If no significant digits after decimal,
          * floating point string is formatted to integer:
@@ -28,12 +28,20 @@ public class ScientificNotation {
         }
     }
 
-    public static String shorthand(float num){
+    public static String shorthand(double num){
         int cout = 0;
         if (num > 0){
-            while(num >= 10){
-                num /= 10;
-                cout++;
+            if(num < 1){
+                while(num < 1){
+                    num *= 10;
+                    cout--;
+                }
+            }
+            else{
+                while(num >= 10){
+                    num /= 10;
+                    cout++;
+                }
             }
         }
         else{
@@ -54,5 +62,7 @@ public class ScientificNotation {
         System.out.println(ScientificNotation.shorthand(1000));   // returns "10^3"
         System.out.println(ScientificNotation.shorthand(-1000));   // returns "-1*10^3"
         //System.out.println(ScientificNotation.shorthand(532452000));  // returns "5.325*10^8"
+        System.out.println(ScientificNotation.shorthand(0.00005));  // returns "5*10^-5"
+        System.out.println(ScientificNotation.shorthand(0.000001));  // returns "5*10^-6"
     }
 }
