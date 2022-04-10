@@ -77,11 +77,16 @@ public class VendingMachineFiniteStateAutomata {
 
     public static void main(String[] args) {
         VendingMachineFiniteStateAutomata vm = new VendingMachineFiniteStateAutomata();
-        System.out.println(vm.vendingMachine("five"));
-        System.out.println(vm.vendingMachine("five"));
-        System.out.println(vm.vendingMachine("twenty"));
-        System.out.println(vm.vendingMachine("twenty"));
-        System.out.println(vm.vendingMachine("o"));
-        System.out.println(vm.vendingMachine("ten"));
+        System.out.println(vm.vendingMachine("five")); //returns "Give me twenty more"
+        System.out.println(vm.vendingMachine("five")); //returns "Give me fifteen mor"
+        System.out.println(vm.vendingMachine("five")); //returns "Give me ten more"
+        System.out.println(vm.vendingMachine("bla"));  //returns "I don't know what you put inside of me, but I'm keeping it"
+        System.out.println(vm.vendingMachine("five")); //returns "Give me five more"
+        System.out.println(vm.vendingMachine("five")); //returns "Take your candy"
+        System.out.println(vm.vendingMachine("ten"));  //returns "Give me fifteen more"
+        System.out.println(vm.vendingMachine("ten"));  //returns "Give me five more"
+        System.out.println(vm.vendingMachine("ten"));  //returns "Take your candy and five back"
+        System.out.println(vm.vendingMachine("twenty")); //returns "Give me five more"
+        System.out.println(vm.vendingMachine("twenty")); //returns "Take your candy and fifteen back"
     }
 }
