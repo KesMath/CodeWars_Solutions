@@ -23,7 +23,7 @@ public class VendingMachineFiniteStateAutomata {
                                 {{
                                     put(5, "fifteen");
                                     put(10, "ten");
-                                    put(20, "Take your candy");
+                                    put(20, "zero");
                                 }});
 
         finiteMachineStates.put(15, new HashMap<>()
@@ -35,12 +35,12 @@ public class VendingMachineFiniteStateAutomata {
         finiteMachineStates.put(10, new HashMap<>()
                                 {{
                                     put(5, "five");
-                                    put(10, "Take your candy");
+                                    put(10, "zero");
                                 }});
 
         finiteMachineStates.put(5, new HashMap<>()
                                 {{
-                                    put(5, "Take your candy");
+                                    put(5, "zero");
                                 }});
     }
 
@@ -52,7 +52,7 @@ public class VendingMachineFiniteStateAutomata {
         String newBalance = finiteMachineStates.get(candyPriceBalance).get(insertedValue);
         candyPriceBalance -= insertedValue;
         if(candyPriceBalance == 0){
-            return newBalance;
+            return "Take your candy";
         }
         return "Give me " + newBalance + " more";
     }
